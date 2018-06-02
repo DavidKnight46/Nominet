@@ -1,10 +1,13 @@
 package com.nominet.excerise.optimisers;
 
+import java.util.List;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.nominet.excerise.model.Result;
 import com.nominet.excerise.model.Scenario;
+import com.nominet.excerise.model.Transmitter;
 
 import smile.math.distance.ChebyshevDistance;
 
@@ -13,7 +16,7 @@ public class DavidOptimiser implements PowerOptimiser {
 	private static Logger log = Logger.getLogger(DavidOptimiser.class);
 
 	/**
-	 * Get all receivers to receive a signal from the transmitters
+	 * Ensure all receivers to receive a signal from the transmitters
 	 * 
 	 */
 	@Override
@@ -53,7 +56,7 @@ public class DavidOptimiser implements PowerOptimiser {
 			countTr++;
 		}
 
-		return new Result(scenario.transmitters.subList(0, countTr ));
+		return new Result(scenario.transmitters);
 	}
 
 	/**
@@ -92,7 +95,7 @@ public class DavidOptimiser implements PowerOptimiser {
 
 			double[] transI = { sce.transmitters.get(count).location.x, sce.transmitters.get(count).location.y };
 
-			//
+			
 			if (powerIncreaseRequired > calcuateChebyshevDistance(rec, transI) - power) {
 				powerIncreaseRequired = range - power;
 				index = count;
