@@ -24,8 +24,8 @@ public class Nominet
     	List<Transmitter> tList = new ArrayList<Transmitter>();
     	List<Receiver> rList = new ArrayList<Receiver>();
     	
-    	Receiver testReceiver_1 = new Receiver(1, new Point(1, 0));
-    	Receiver testReceiver_2 = new Receiver(2, new Point(2, 0));
+    	Receiver testReceiver_1 = new Receiver(1, new Point(1, 0), true);
+    	Receiver testReceiver_2 = new Receiver(2, new Point(2, 0), false);
     	
     	Transmitter testTran_1 = new Transmitter(1, new Point(3, 0), 1);
     	

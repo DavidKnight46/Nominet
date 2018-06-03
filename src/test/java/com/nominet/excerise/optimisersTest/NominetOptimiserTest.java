@@ -33,8 +33,8 @@ public class NominetOptimiserTest {
 	 */
 	@Test
 	public void scenario_1() {
-		Receiver testReceiver_1 = new Receiver(1, new Point(1, 0));
-		Receiver testReceiver_2 = new Receiver(2, new Point(2, 0));
+		Receiver testReceiver_1 = new Receiver(1, new Point(1, 0), true);
+		Receiver testReceiver_2 = new Receiver(2, new Point(2, 0), true);
 		
 		Transmitter testTran_1 = new Transmitter(1, new Point(3, 0), 1);
 		
@@ -58,10 +58,10 @@ public class NominetOptimiserTest {
 	@Test
 	public void scenario_2() {
 		//fail("Not yet implemented");
-		Receiver testReceiver_1 = new Receiver(1, new Point(1, 0));
-		Receiver testReceiver_2 = new Receiver(2, new Point(2, 0));
-		Receiver testReceiver_3 = new Receiver(3, new Point(3, 0));
-		Receiver testReceiver_4 = new Receiver(4, new Point(4, 0));
+		Receiver testReceiver_1 = new Receiver(1, new Point(1, 0), true);
+		Receiver testReceiver_2 = new Receiver(2, new Point(2, 0), true);
+		Receiver testReceiver_3 = new Receiver(3, new Point(3, 0), true);
+		Receiver testReceiver_4 = new Receiver(4, new Point(4, 0), true);
 		
 		Transmitter testTran_1 = new Transmitter(1, new Point(3, 0), 1);
 		Transmitter testTran_2 = new Transmitter(2, new Point(3, 0), 1);

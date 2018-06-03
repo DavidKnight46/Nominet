@@ -1,18 +1,15 @@
 package com.nominet.excerise.optimisers;
 
-import java.util.List;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.nominet.excerise.model.Result;
 import com.nominet.excerise.model.Scenario;
-import com.nominet.excerise.model.Transmitter;
 
 import smile.math.distance.ChebyshevDistance;
 
 public class DavidOptimiser implements PowerOptimiser {
-	
+
 	private static Logger log = Logger.getLogger(DavidOptimiser.class);
 
 	/**
@@ -33,27 +30,33 @@ public class DavidOptimiser implements PowerOptimiser {
 			double[] chebyTransmitter = { Integer.valueOf(positionTransmitterX).doubleValue(),
 					Integer.valueOf(positionTransmitterY).doubleValue() };
 
-			// Find an receiver that is range of the transmitter
-			int positionRecieverX = scenario.receivers.get(countTr).location.x;
-			int positionRecieverY = scenario.receivers.get(countTr).location.y;
+			// Check that receiver is not out of coverage
+			if (scenario.receivers.get(countTr).getIsInCoverage()) {
 
-			double[] chebyReciever = { Integer.valueOf(positionRecieverX).doubleValue(),
-					Integer.valueOf(positionRecieverY).doubleValue() };
+				// Find an receiver that is range of the transmitter
+				int positionRecieverX = scenario.receivers.get(countTr).location.x;
+				int positionRecieverY = scenario.receivers.get(countTr).location.y;
 
-			// Receiver is in range of a transmitter
-			if (calcuateChebyshevDistance(chebyTransmitter, chebyReciever) <= positionTransmissionPower) {
-				scenario.receivers.get(countTr).setIsInCoverage(true);
-				log.log(Level.INFO, "Reciever " + scenario.receivers.get(countTr).id + " connected." +
-						"Connected to transmitter 0");
+				double[] chebyReciever = { Integer.valueOf(positionRecieverX).doubleValue(),
+						Integer.valueOf(positionRecieverY).doubleValue() };
+
+				// Receiver is in range of a transmitter
+				if (calcuateChebyshevDistance(chebyTransmitter, chebyReciever) <= positionTransmissionPower) {
+					scenario.receivers.get(countTr).setIsInCoverage(true);
+					log.log(Level.INFO, "Reciever " + scenario.receivers.get(countTr).id + " connected."
+							+ "Connected to transmitter 1");
+				}
+				// Receiver is not in range thus we increase power of closest transmitter
+				// until in range
+				else {
+					this.findClosestTransmitter(scenario, countTr);
+				}
+
+				countTr++;
+			}//End of In coverage loop
+			else {
+				log.log(Level.INFO, scenario.receivers.get(countTr).id + " not in coverage.");
 			}
-			// Receiver is not in range thus we increase power of closest transmitter
-			// until in range
-			else 
-			{
-				this.findClosestTransmitter(scenario, countTr);
-			}
-
-			countTr++;
 		}
 
 		return new Result(scenario.transmitters);
@@ -95,7 +98,6 @@ public class DavidOptimiser implements PowerOptimiser {
 
 			double[] transI = { sce.transmitters.get(count).location.x, sce.transmitters.get(count).location.y };
 
-			
 			if (powerIncreaseRequired > calcuateChebyshevDistance(rec, transI) - power) {
 				powerIncreaseRequired = range - power;
 				index = count;
@@ -105,9 +107,9 @@ public class DavidOptimiser implements PowerOptimiser {
 
 		sce.receivers.get(recId).setIsInCoverage(true);
 		sce.transmitters.get(index).increasePower((int) powerIncreaseRequired);
-		
-		log.log(Level.INFO, "Reciever " + sce.receivers.get(recId).id + " connected." +
-		       "Connected to transmitter " + sce.transmitters.get(index).id);
+
+		log.log(Level.INFO, "Reciever " + sce.receivers.get(recId).id + " connected." + "Connected to transmitter "
+				+ sce.transmitters.get(index).id);
 
 	}
 
@@ -118,7 +120,8 @@ public class DavidOptimiser implements PowerOptimiser {
 	 * @return
 	 */
 	private boolean isAllReceiversInRange(Scenario scenario) {
-		return scenario.receivers.stream().anyMatch(e -> e.getIsInCoverage() == false);
+		return scenario.receivers.stream().anyMatch(e -> e.getIsConnectedToRec() == false &&
+				                                    e.getIsInCoverage() ==  true);
 
 	}
 
