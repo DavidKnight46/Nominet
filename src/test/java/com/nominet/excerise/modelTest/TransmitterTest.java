@@ -11,7 +11,7 @@ import com.nominet.excerise.model.Transmitter;
 public class TransmitterTest {
 	
 	Transmitter transTest;
-	int powerIncreasedRequired = 2;
+	final int powerIncreasedRequired = 2;
 	final int EXPECTED_RESULT_INT = 4; 
 	
 	@Before

@@ -1,14 +1,45 @@
 package com.nominet.excerise.modelTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class ReceiverTest {
+import com.nominet.excerise.model.Point;
+import com.nominet.excerise.model.Receiver;
 
+public class ReceiverTest {
+	
+	Receiver recieverTest;
+	
+
+	/**
+	 * Test to ensure that receiver is not connected 
+	 * to a tranmsitter
+	 */
 	@Test
-	public void test() {
-		//fail("Not yet implemented");
+	public void isConnectedToAReceiverTest() {
+		
+		recieverTest = new Receiver(1, new Point(1, 2), true);
+		
+		assertFalse(recieverTest.getIsConnectedToRec());
+		
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void isInCoverageTest() {
+		
+		recieverTest = new Receiver(1, new Point(1, 2), true);
+		
+		assertTrue(recieverTest.getIsInCoverage());
+		
+		recieverTest = new Receiver(1, new Point(1, 2), false);
+		
+		assertFalse(recieverTest.getIsInCoverage());
+		
 	}
 
 }
