@@ -27,6 +27,8 @@ public class ReceiverTest {
 	}
 	
 	/**
+	 * Test to ensure that receiver is in
+	 * coverage 
 	 * 
 	 */
 	@Test

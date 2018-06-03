@@ -19,8 +19,10 @@ public class DavidOptimiser implements PowerOptimiser {
 	@Override
 	public Result optimise(Scenario scenario) {
 		int countTr = 0;
+		boolean allOutOfRange = true;
 
 		while (isAllReceiversInRange(scenario)) {
+			allOutOfRange = false;
 
 			int positionTransmitterX = scenario.transmitters.get(0).location.x;
 			int positionTransmitterY = scenario.transmitters.get(0).location.y;
@@ -52,14 +54,26 @@ public class DavidOptimiser implements PowerOptimiser {
 					this.findClosestTransmitter(scenario, countTr);
 				}
 
-				countTr++;
-			}//End of In coverage loop
-			else {
-				log.log(Level.INFO, scenario.receivers.get(countTr).id + " not in coverage.");
+				//countTr++;
+			}else {
+				log.log(Level.INFO, "Receiever " + scenario.receivers.get(countTr).id + " is out of coverage.");
 			}
+			
+			countTr++;
+			
+		}
+		
+		Result re = new Result(scenario.transmitters);
+		
+		if(!allOutOfRange) {
+			log.log(Level.INFO, "Total power used is: " + re.getTotalPower());
+		}
+		else
+		{
+			log.log(Level.INFO, "All receivers not in range");
 		}
 
-		return new Result(scenario.transmitters);
+		return re;
 	}
 
 	/**
@@ -120,8 +134,7 @@ public class DavidOptimiser implements PowerOptimiser {
 	 * @return
 	 */
 	private boolean isAllReceiversInRange(Scenario scenario) {
-		return scenario.receivers.stream().anyMatch(e -> e.getIsConnectedToRec() == false &&
-				                                    e.getIsInCoverage() ==  true);
+		return scenario.receivers.stream().anyMatch(e -> e.getIsConnectedToRec() == false && e.getIsInCoverage() == true );
 
 	}
 
