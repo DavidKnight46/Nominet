@@ -15,7 +15,7 @@ public class ReceiverTest {
 
 	/**
 	 * Test to ensure that receiver is not connected 
-	 * to a tranmsitter
+	 * to a transmitter
 	 */
 	@Test
 	public void isConnectedToAReceiverTest() {

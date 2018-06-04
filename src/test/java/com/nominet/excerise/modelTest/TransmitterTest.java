@@ -20,12 +20,12 @@ public class TransmitterTest {
 	}
 
 	/**
-	 * 
+	 * Ensure that the transmission power can be 
+	 * increased
 	 * 
 	 */
 	@Test
 	public void increaseTransmissionPower() {
-		//fail("Not yet implemented");
 		transTest.increasePower(powerIncreasedRequired);
 		
 		assertEquals(transTest.getPower(), EXPECTED_RESULT_INT);
