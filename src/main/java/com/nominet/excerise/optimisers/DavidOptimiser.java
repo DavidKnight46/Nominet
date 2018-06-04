@@ -54,7 +54,6 @@ public class DavidOptimiser implements PowerOptimiser {
 					this.findClosestTransmitter(scenario, countTr);
 				}
 
-				//countTr++;
 			}else {
 				log.log(Level.INFO, "Receiever " + scenario.receivers.get(countTr).id + " is out of coverage.");
 			}

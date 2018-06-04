@@ -29,6 +29,7 @@ public class NominetOptimiserTest {
 	}
 	
 	/**
+	 * Test case for supplied scenario 1
 	 * 
 	 */
 	@Test
@@ -51,7 +52,7 @@ public class NominetOptimiserTest {
 	}
 	
 	/**
-	 * 
+	 *  Test case for supplied scenario 2
 	 */
 	@Test
 	public void scenario_2() {
@@ -75,7 +76,7 @@ public class NominetOptimiserTest {
 	}
 	
 	/**
-	 * 
+	 * Test case for supplied scenario 3
 	 */
 	@Test
 	public void scenario_3() {
@@ -109,6 +110,8 @@ public class NominetOptimiserTest {
 	}
 	
 	/**
+	 * Test case for supplied scenario 4
+	 * 
 	 * 
 	 */
 	@Test
@@ -148,11 +151,11 @@ public class NominetOptimiserTest {
 	}
 	
 	/**
+	 * Test case for supplied scenario 5
 	 * 
 	 */
 	@Test
 	public void scenario_5() {
-		//fail("Not yet implemented");
 		Receiver testReceiver_1 = new Receiver(1, new Point(12, 6), true);
 		Receiver testReceiver_2 = new Receiver(2, new Point(6, 12), true);
 		Receiver testReceiver_3 = new Receiver(3, new Point(18, 12), true);
@@ -200,6 +203,7 @@ public class NominetOptimiserTest {
 	}
 	
 	/**
+	 * Test case for supplied scenario 6
 	 * 
 	 */
 	@Test
@@ -233,6 +237,10 @@ public class NominetOptimiserTest {
 		assertEquals( result.transmitters.get(3).getPower(), 4 );
 	}
 	
+	/**
+	 * Test case for supplied scenario 7
+	 * 
+	 */
 	@Test
 	public void scenario_7() {
 		Transmitter testTran_1 = new Transmitter(1, new Point(18, 23), 2);
